@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 22:09:37 by nelallao          #+#    #+#             */
-/*   Updated: 2023/03/22 18:46:19 by nelallao         ###   ########.fr       */
+/*   Created: 2023/03/23 00:29:52 by nelallao          #+#    #+#             */
+/*   Updated: 2023/03/23 00:32:34 by nelallao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	main(void)
+long	ft_atoi(char *str)
 {
-	pid_t	pid;
+	long	signe;
+	long	i;
+	long	result;
 
-	pid = getpid();
-	ft_printf("My PID is : %d\n", pid);
-    while (1);
-	return (0);
+	signe = 1;
+	i = 0;
+	result = 0;
+
+	if (str[i] == '-')
+	{
+		signe = signe * (-1);
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	return (result * signe);
 }

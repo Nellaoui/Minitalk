@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 22:09:37 by nelallao          #+#    #+#             */
-/*   Updated: 2023/03/22 18:46:19 by nelallao         ###   ########.fr       */
+/*   Created: 2023/03/22 23:21:01 by nelallao          #+#    #+#             */
+/*   Updated: 2023/03/23 00:33:43 by nelallao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include <stdio.h>
 
-int	main(void)
+int main()
 {
-	pid_t	pid;
+    char c = 'b';
+    int ascii_value = (int) c;
 
-	pid = getpid();
-	ft_printf("My PID is : %d\n", pid);
-    while (1);
-	return (0);
+    printf("%d", ascii_value);
 }
