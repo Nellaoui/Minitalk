@@ -6,11 +6,13 @@
 #    By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/21 20:23:15 by nelallao          #+#    #+#              #
-#    Updated: 2023/03/22 00:09:52 by nelallao         ###   ########.fr        #
+#    Updated: 2023/03/26 18:08:10 by nelallao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CLIENT = client.c
+CLIENT = client.c minitalk_utils.c
+
+DEBUG = -fsanitize=address
 
 SERVER = server.c 
 
@@ -31,7 +33,7 @@ $(NAME) :
 	$(CC) $(CFLAGS) $(LIB) $(CLIENT) $(UTILS) -o $(NAME)
 
 $(NAME_2) :
-	$(CC) $(CFLAGS) $(LIB) $(SERVER) $(UTILS) -o $(NAME_2)
+	$(CC) $(DEBUG) $(CFLAGS) $(LIB) $(SERVER) $(UTILS) -o $(NAME_2)
 
 $(LIB):
 	make -C printf
@@ -39,6 +41,6 @@ clean :
 	rm -rf $(NAME)
 
 fclean : 
-	rm -fr $(NAME)
-
+	rm -dfr ./client
+	rm -dfr ./server
 re : fclean all
