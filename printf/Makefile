@@ -6,15 +6,15 @@ SRC = ft_printf.c ft_outil.c
 OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ)
-		ar rc $(NAME) $(OBJ)
+		@ar rc $(NAME) $(OBJ)
 %.o: %.c
-		$(CC) $(CFLAGS) -o $@ -c $<
+		@$(CC) $(CFLAGS) -o $@ -c $<
 
 all: $(NAME)
 	
 clean:	
-		$(RM) $(OBJ)
+		@$(RM) $(OBJ)
 fclean: clean
-		$(RM) $(NAME) 
+		@$(RM) $(NAME) 
 
 re: fclean all

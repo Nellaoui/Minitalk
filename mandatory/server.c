@@ -6,18 +6,27 @@
 /*   By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 22:09:37 by nelallao          #+#    #+#             */
-/*   Updated: 2023/03/26 20:46:52 by nelallao         ###   ########.fr       */
+/*   Updated: 2023/03/29 00:52:24 by nelallao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_hold_binary(int sig)
+void	ft_hold_binary(int sig, siginfo_t *info, void *useless)
 {
-	static int	i;
-	static int	elements[8];
-	int			decimal_value;
+	static int		i;
+	static int		elements[8];
+	int				decimal_value;
+	static pid_t	pervious_pid;
 
+	(void) useless;
+	if (pervious_pid == 0)
+		pervious_pid = info->si_pid;
+	if (pervious_pid != info->si_pid)
+	{
+		pervious_pid = info->si_pid;
+		i = 0;
+	}
 	decimal_value = 0;
 	if (sig == 30)
 		elements[i] = 0;
@@ -73,14 +82,16 @@ int	ft_binry_to_char(int *elements)
 
 int	main(void)
 {
-	pid_t	pid;
+	pid_t				pid;
+	struct sigaction	signal_action;
 
+	signal_action.sa_sigaction = ft_hold_binary;
+	signal_action.sa_flags = SA_SIGINFO;
 	pid = getpid();
-	ft_printf("My PID is : %d\n", pid);
+	ft_printf("PID is : %d\n", pid);
+	sigaction(SIGUSR1, &signal_action, NULL);
+	sigaction(SIGUSR2, &signal_action, NULL);
 	while (1)
-	{
-		signal(SIGUSR1, ft_hold_binary);
-		signal(SIGUSR2, ft_hold_binary);
-	}
+		;
 	return (0);
 }

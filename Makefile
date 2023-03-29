@@ -6,41 +6,80 @@
 #    By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/21 20:23:15 by nelallao          #+#    #+#              #
-#    Updated: 2023/03/26 18:08:10 by nelallao         ###   ########.fr        #
+#    Updated: 2023/03/29 01:11:47 by nelallao         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CLIENT = client.c minitalk_utils.c
+CLIENT = 	mandatory/client.c \
+			mandatory/minitalk_utils.c \
 
-DEBUG = -fsanitize=address
+CLIENT_BONUS = bonus/client_bonus.c \
+				bonus/minitalk_utils.c \
 
-SERVER = server.c 
+SERVER = mandatory/server.c
 
-# SRC = minitalk_utils.c
+SERVER_BONUS = bonus/server_bonus.c
+
 
 NAME = client
+NAME_BONUS = client_bonus
 
 NAME_2 = server
+NAME_BONUS_2 = server_bonus
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIB = printf/libftprintf.a
 
-# all : $(NAME) $(NAME_2)
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+COLOUR_END=\033[0m
+
 all : $(LIB) $(NAME) $(NAME_2)
 
 $(NAME) :
-	$(CC) $(CFLAGS) $(LIB) $(CLIENT) $(UTILS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(LIB) $(CLIENT) -o $(NAME)
+	@echo "$(COLOUR_GREEN)███╗   ███╗██╗███╗   ██╗██╗████████╗ █████╗ ██╗     ██╗  ██╗"
+	@echo "████╗ ████║██║████╗  ██║██║╚══██╔══╝██╔══██╗██║     ██║ ██╔╝ "
+	@echo "██╔████╔██║██║██╔██╗ ██║██║   ██║   ███████║██║     █████╔╝"
+	@echo "██║╚██╔╝██║██║██║╚██╗██║██║   ██║   ██╔══██║██║     ██╔═██╗ "
+	@echo "██║ ╚═╝ ██║██║██║ ╚████║██║   ██║   ██║  ██║███████╗██║  ██╗ "
+	@echo "╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝ "
+	@echo "$(COLOUR_GREEN)\
+█▀ █░█ █▀▀ █▀▀ █▀▀ █▀ █▀ █▀▀ █░█ █░░ █░░ █▄█   █▀▀ █▀█ █▀▄▀█ █▀█ █ █░░ █▀▀ █▀▄\n\
+▄█ █▄█ █▄▄ █▄▄ ██▄ ▄█ ▄█ █▀░ █▄█ █▄▄ █▄▄ ░█░   █▄▄ █▄█ █░▀░█ █▀▀ █ █▄▄ ██▄ █▄▀$(COLOUR_END)"
 
 $(NAME_2) :
-	$(CC) $(DEBUG) $(CFLAGS) $(LIB) $(SERVER) $(UTILS) -o $(NAME_2)
+	@$(CC) $(CFLAGS) $(LIB) $(SERVER) -o $(NAME_2)
 
 $(LIB):
-	make -C printf
-clean :
-	rm -rf $(NAME)
+	@make -C printf
 
-fclean : 
-	rm -dfr ./client
-	rm -dfr ./server
+bonus : $(LIB) $(NAME_BONUS) $(NAME_BONUS_2)
+
+$(NAME_BONUS) :
+	@$(CC) $(CFLAGS) $(LIB) $(CLIENT_BONUS) -o $(NAME_BONUS)
+
+$(NAME_BONUS_2) :
+	@$(CC) $(CFLAGS) $(LIB) $(SERVER_BONUS)  -o $(NAME_BONUS_2)
+	@echo "$(COLOUR_BLUE)██████╗  ██████╗ ███╗   ██╗██╗   ██╗███████╗"
+	@echo "██╔══██╗██╔═══██╗████╗  ██║██║   ██║██╔════╝"
+	@echo "██████╔╝██║   ██║██╔██╗ ██║██║   ██║███████╗"
+	@echo "██╔══██╗██║   ██║██║╚██╗██║██║   ██║╚════██║"
+	@echo "██████╔╝╚██████╔╝██║ ╚████║╚██████╔╝███████║"
+	@echo "╚═════╝  ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝ ╚══════╝"
+	@echo "$(COLOUR_BLUE)\
+█▀ █░█ █▀▀ █▀▀ █▀▀ █▀ █▀ █▀▀ █░█ █░░ █░░ █▄█   █▀▀ █▀█ █▀▄▀█ █▀█ █ █░░ █▀▀ █▀▄\n\
+▄█ █▄█ █▄▄ █▄▄ ██▄ ▄█ ▄█ █▀░ █▄█ █▄▄ █▄▄ ░█░   █▄▄ █▄█ █░▀░█ █▀▀ █ █▄▄ ██▄ █▄▀$(COLOUR_END)"
+
+clean :
+	@make clean -C printf
+	@rm -rf $(NAME)
+fclean :
+	@make fclean -C printf
+	@rm -dfr ./client_bonus
+	@rm -dfr ./client
+	@rm -dfr ./server_bonus
+	@rm -dfr ./server
 re : fclean all

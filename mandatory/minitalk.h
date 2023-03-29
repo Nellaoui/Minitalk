@@ -1,38 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk_utils.c                                   :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 00:29:52 by nelallao          #+#    #+#             */
-/*   Updated: 2023/03/23 00:32:34 by nelallao         ###   ########.fr       */
+/*   Created: 2023/03/21 23:14:12 by nelallao          #+#    #+#             */
+/*   Updated: 2023/03/29 00:52:07 by nelallao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-long	ft_atoi(char *str)
-{
-	long	signe;
-	long	i;
-	long	result;
+# include <unistd.h>
+# include "../printf/ft_printf.h"
+# include <signal.h>
 
-	signe = 1;
-	i = 0;
-	result = 0;
+long	ft_atoi(char *str);
+void	ft_hold_binary(int sig, siginfo_t *info, void *useless);
+int		ft_power(int element, int power);
+int		ft_binry_to_char(int *elements);
 
-	if (str[i] == '-')
-	{
-		signe = signe * (-1);
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + str[i] - '0';
-		i++;
-	}
-	return (result * signe);
-}
+#endif
