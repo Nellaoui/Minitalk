@@ -6,7 +6,7 @@
 /*   By: nelallao <nelallao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 00:29:52 by nelallao          #+#    #+#             */
-/*   Updated: 2023/03/29 00:52:15 by nelallao         ###   ########.fr       */
+/*   Updated: 2023/03/29 20:45:07 by nelallao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ long	ft_atoi(char *str)
 	{
 		result = result * 10 + str[i] - '0';
 		i++;
+	}
+	if (str[i])
+	{
+		printf("ach katkherb");
+		exit(EXIT_FAILURE);
 	}
 	return (result * signe);
 }
